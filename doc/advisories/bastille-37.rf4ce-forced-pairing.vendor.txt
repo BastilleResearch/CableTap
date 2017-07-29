@@ -1,0 +1,43 @@
+Bastille Tracking Number 37
+CVE-2017-9493
+
+Overview
+
+The RF4CE remote pairing mechanism on the Motorola MX011ANM set-top box has been shown to be vulnerable to a forced pairing attack.
+
+
+
+Affected Platforms
+
+Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+
+
+
+Proof-of-Concept
+
+An attacker can force-pair an RF4CE remote with a target set-top box by repeatedly transmitting the same pairing code. In practice, we have demonstrated this to take approximately two hours to complete. 
+
+
+
+Test Environment
+
+Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to change this behavior.
+
+
+
+Recommended Remediation
+
+Implement rate-limiting to prevent an unlimited number of pairing sequence attempts.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

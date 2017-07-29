@@ -1,0 +1,74 @@
+Bastille Tracking Number 36
+
+Bastille Vulnerability Label: Insufficient HTTP Security Headers
+Bastille Provided Severity: Low
+
+Overview
+
+Insufficient HTTP security headers occurs when a web application does not make use of standardized HTTP response headers that improve the security posture of the affected application. Many of these HTTP response headers require trivial amounts of effort to implement, and offer significant protections for application users. The headers that are relevant to the modems identified here are as follows:
+
+X-Frame-Options - This header enables application authors to specify which (if any) parent domains have permission to place the application inside an Iframe.
+
+X-XSS-Protection - This header forces browsers to enable their cross-site scripting protection engines in the event that the engine has been disabled for any reason.
+
+X-Content-Type-Options - This header instructs browsers not to attempt to determine the MIME type of served data and instead rely on the MIME type provided by the server. This protects against attacks that use type confusion to get a browser to render data as a content type that it is not (i.e.: render XML as HTML).
+
+Content-Security-Policy - This header enables application authors to provide a whitelist of sources where third-party resources can be retrieved from (JavaScript, CSS, images, etc), what sort of applets can be run (Java, Flash, etc), and what scenarios JavaScript can be run in. Having a strict content security policy can protect against a significant amount of client-side vulnerabilities, and can even mitigate cross-site scripting in many scenarios.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3939B, firmware version dpc3939b-v303r204217-150321a-CMCST
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version TG1682_2.2p7s2_PROD_sey
+
+
+
+Proof-of-Concept
+
+(1) Install Burp Suite proxy (https://portswigger.net/burp/)
+
+(2) Open a browser and navigate the browser to a login page of one of the affected modems (typically http://10.0.0.1/)
+
+(3) Configure the browser to use Burp Suite as an HTTP proxy (http://www.lib.berkeley.edu/using-the-libraries/proxy-chrome-windows)
+
+(4) In the browser, log in to the portal and navigate through any number of pages.
+
+(5) In Burp Suite's Proxy tab, view the HTTP responses returned by the modem's web application. Note that none of the security headers listed above are present.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3939B, firmware version dpc3939b-v303r204217-150321a-CMCST
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version TG1682_2.2p7s2_PROD_sey
+
+
+
+Mitigation
+
+Comcast should implement all of the HTTP security headers listed in this finding. The following headers require very little configuration, and can likely be implemented with the following default values:
+
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+
+Content security policy, however, takes some amount of engineering effort to implement. The process for implementation involves reviewing all of the resources used by the application, as well as all of the methods through which the application invokes JavaScript, and designing a policy that fits. Some additional sources that can provide guidance on the design and implementation of an effective content security policy follow:
+
+- http://www.cspplayground.com/usage
+- https://content-security-policy.com/
+
+
+
+Recommended Remediation
+
+N/A
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

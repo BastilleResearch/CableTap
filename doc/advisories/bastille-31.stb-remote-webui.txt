@@ -1,0 +1,53 @@
+Bastille Tracking Number 31
+CVE-2017-9488
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to remotely log into a target gateway using hardcoded credentials.
+
+
+
+Affected Platforms:
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3941T, firmware version DPC3941_2.5s3_PROD_sey
+
+
+
+Proof-of-Concept
+
+Comcast residential gateways expose the web UI to incoming connections on the wan0 interface. On the wan0 interface, the web UI can be accessed with either hardcoded or generated credentials.
+
+There are two barriers which prevent attackers from accessing this web UI: 
+
+1) The IPv6 address of the wan0 interface on a target gateway must be known. 
+
+2) The wan0 interface cannot be accessed from the public internet. 
+
+The IPv6 address can be obtained from the CM MAC (Bastille Tracking Number 30).
+
+
+
+Test Environment:
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3941T, firmware version DPC3941_2.5s3_PROD_sey
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to control or change this behavior.
+
+
+
+Recommended Remediation
+
+Move to certificate-based authentication, and restrict customer gateway wan0 access so that it cannot be accessed via the Send To TV web browser feature.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

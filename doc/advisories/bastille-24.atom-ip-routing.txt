@@ -1,0 +1,54 @@
+Bastille Tracking Number 24
+CVE-2017-9481
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to communicate with the internal network interface on the network processor (Atom) Linux instance.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+The NP Linux instance is configured with two IPv4 addresses: 
+
+[LAN]      10.0.0.254
+[Internal] 169.254.101.2 
+
+The LAN facing address is accessible to computers connected over ethernet or the private Wi-Fi AP, and is used to host a UPnP server.
+
+The internal address is not intended to be accessed by end users, and appears to be used for RPC, Telnet, and DBus. 
+
+An attacker can communicate with the internal address by manually routing through the LAN address, as follows:
+
+ip route add 169.254.101.2 via 10.0.0.254
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to prevent access to the NP internal IP address.
+
+
+
+Recommended Remediation
+
+Update the firewall rules to prevent access to the NP internal IP address from the LAN.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

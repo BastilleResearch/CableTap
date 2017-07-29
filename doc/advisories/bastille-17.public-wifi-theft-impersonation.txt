@@ -1,0 +1,49 @@
+Bastille Tracking Number 17
+CVE-2017-9475
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to impersonate a Comcast customer connected to an "xfinitywifi" hotspot. This allows the attacker to access the Internet for free, and attribute any malicious activity to the Comcast customer they are impersonating.
+
+
+
+Affected Platforms
+
+XFINITY Wi-Fi Home Hotspot
+
+
+
+Proof-of-Concept
+
+When a Comcast customer connects to an "xfinitywifi" hotspot on a previously unregistered device, they are prompted to login to their Comcast account in order to access the Internet. The Wi-Fi MAC address of customer's device is then associated with their Comcast account.
+
+The next time the customer connects their device to an "xfinitywifi" hotspot, it is authenticated using the Wi-Fi MAC address, and the device is immediately granted Internet access.
+
+An attacker can impersonate a Comcast customer by wirelessly sniffing the MAC addresses of a device connected to an "xfinitywifi" hotspot, and then configuring their device to use the same MAC address.
+
+This enables an attacker to access the Internet for free, and attribute any malicious activity to the customer they are impersonating.
+
+
+
+Test Environment
+
+The impersonation / theft of service attack was tested using a TP-LINK TL-WDN3200 Wi-Fi adapter connected to an Ubuntu 16.04 laptop.
+
+
+
+Mitigation
+
+Comcast customers can prevent an impersonation attack by not connecting to any "xfinitywifi" hotspots.
+
+
+
+Recommended Remediation
+
+Comcast offers certificate authenticated "XFINITY" Wi-Fi hotspots in some locations. Updating all "xfinitywifi" MAC-address-authenticated hotspots to certificate-authenticated hotspots would remedy this vulnerability.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

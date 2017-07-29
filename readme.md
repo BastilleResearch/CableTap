@@ -15,6 +15,20 @@ chris@websight.io
 
 ## Documents 
 
-[DEFCON-25-Marc-Newlin-CableTap-Slides.pdf](doc/pdf/DEFCON-25-Marc-Newlin-CableTap-Slides.pdf) 
+[DEFCON-25-Marc-Newlin-CableTap-Slides.pdf](doc/pdf/DEFCON-25-Marc-Newlin-CableTap-Slides.pdf)  
+[DEFCON-25-Marc-Newlin-CableTap-White-Paper.pdf](doc/pdf/DEFCON-25-Marc-Newlin-CableTap-White-Paper.pdf)  
+[Vulnerability Details](doc/advisories)  
 
-**The remaining materials will be posted at 16:00 PDT on July 29th, 2017.** 
+## Tools
+
+[fastcgi_fingerprint.nse](src/fastcgi_fingerprint.nse)  
+Nmap NSE script for identifying FastCGI services  
+
+[management_request](management_request)  
+Binary file that can be used with ZGrab to identify FastCGI services. The command is invoked as follows:  
+
+```zgrab --port 1026 --input-file targets --data management_request --output-file zgrab_1026.json --timeout 3```
+
+## Resources
+
+[https://bastille.net/research/vulnerabilities/cabletap/](https://bastille.net/research/vulnerabilities/cabletap/)

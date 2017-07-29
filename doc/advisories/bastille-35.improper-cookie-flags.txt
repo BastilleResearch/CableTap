@@ -1,0 +1,57 @@
+Bastille Tracking Number 35
+CVE-2017-9491
+CVE-2017-9492
+
+Bastille Vulnerability Label: Improper Cookie Flags
+Bastille Provided Severity: Low
+
+Overview
+
+Improper cookie flags occurs when the cookies used by an application do not make use of the security flags defined in the HTTP cookie standard.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3939B, firmware version dpc3939b-v303r204217-150321a-CMCST
+Cisco DPC3941T, firmware version DPC3941_2.5s3_PROD_sey
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version TG1682_2.2p7s2_PROD_sey
+
+
+
+Proof-of-Concept
+
+(1) Open a browser and navigate the browser to a login page of one of the affected modems (typically http://10.0.0.1/)
+
+(2) Log in to the application.
+
+(3) Open up the developer tools console in the browser and navigate to where cookie contents can be viewed (https://kb.iu.edu/d/ajfi)
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3939B, firmware version dpc3939b-v303r204217-150321a-CMCST
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version TG1682_2.2p7s2_PROD_sey
+
+
+
+Mitigation
+
+Configure the modem administration applications to enable the HTTP only flag on the appropriate cookies.
+
+
+
+Recommended Remediation
+
+N/A
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

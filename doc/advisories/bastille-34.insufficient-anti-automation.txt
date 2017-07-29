@@ -1,0 +1,67 @@
+Bastille Tracking Number 34
+
+Bastille Vulnerability Label: Insufficient Anti-automation
+Bastille Provided Severity: Medium
+
+Overview
+
+Insufficient anti-automation occurs when an application does not implement any protections that prevent users from automating sensitive application interaction. The strongest form of anti-automation is typically a CAPTCHA, whereas a stop-gap or half-measure is often the use of rate-limiting. In the case of the modems identified in this disclosure, no anti-automation controls were observed on application login functionality. This, paired with the lack of CSRF protections, significantly increases the risk associated with CSRF exploitation.
+
+Affected Platforms:
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3939B, firmware version dpc3939b-v303r204217-150321a-CMCST
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version TG1682_2.2p7s2_PROD_sey
+
+
+
+Proof-of-Concept
+
+(1) Install Burp Suite proxy (https://portswigger.net/burp/)
+
+(2) Open a browser and navigate the browser to a login page of one of the affected modems (typically http://10.0.0.1/)
+
+(3) Configure the browser to use Burp Suite as an HTTP proxy (http://www.lib.berkeley.edu/using-the-libraries/proxy-chrome-windows)
+
+(4) In the browser, log in to the portal and navigate through any number of pages.
+
+(5) In Burp Suite's proxy tab, view the HTTP request that was submitted for the login.
+
+(6) Right-click on the HTTP request and choose "Send To Repeater".
+
+(7) Navigate to the "Repeater" tab at the top of the Burp Suite user interface.
+
+(8) In rapid succession, continue to click on the "Go" button on the left hand-side of the "Repeater" interface.
+
+(9) Note that all of the submitted login requests are successful, and that the average response time for login responses does not change.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3939B, firmware version dpc3939b-v303r204217-150321a-CMCST
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version   TG1682_2.2p7s2_PROD_sey
+
+
+
+Mitigation
+
+Typically insufficient anti-automation should be mitigated through the use of a CAPTCHA. However, due to the architecture of the Comcast networks and nature of modem provisioning, implementing CAPTCHA use in the affected applications is not possible. Therefore, the modems should instead make use of rate-limiting on any pre-authenticated sensitive functionality. An example library that implements rate-limiting in PHP can be found here:
+
+https://github.com/davedevelopment/stiphle
+
+Furthermore, CSRF protections should be implemented to prevent malicious third-parties from forging pre-authenticated requests against functionality that should be protected against automation. For additional details on how to implement these CSRF protections, refer to the CSRF disclosure accompanying this disclosure.
+
+
+
+Recommended Remediation
+
+N/A
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

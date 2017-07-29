@@ -1,0 +1,45 @@
+Bastille Tracking Number 41
+CVE-2017-9497
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to execute commands as root on the Motorola MX011ANM.
+
+
+
+Affected Platforms
+
+Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+
+
+
+Proof-of-Concept
+
+When the diagnostics menu is displayed on the set-top box, and the Remote Web Inspector enabled, an attacker can execute arbitrary commands as root by posting to a known Web Inspector route.
+
+Shell commands can be appended to the request, causing them to be executed as root.
+
+
+
+Test Environment
+
+Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to change this behavior.
+
+
+
+Recommended Remediation
+
+Update the route handler to sanitize input.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

@@ -1,0 +1,45 @@
+Bastille Tracking Number 40
+CVE-2017-9496
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to access an SNMP server running on the Motorola MX011ANM.
+
+
+
+Affected Platforms
+
+Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+
+
+
+Proof-of-Concept
+
+The Motorola MX011ANM includes an Ethernet port, which upon first glance appears to be inactive. Assuming a similar addressing scheme to the wireless gateways, which use a clustered range of MAC addresses and IPv6 addresses based on the MAC addresses, we were able to guess the link local IPv6 address of the Ethernet port. 
+
+We then discovered that an SNMP server running on the set-top box can be accessed by addressing the link-local IPv6 address of the Ethernet port.
+
+
+
+Test Environment
+
+Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to change this behavior.
+
+
+
+Recommended Remediation
+
+Patch the arbitrary file read vulnerability we used to learn the community string.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

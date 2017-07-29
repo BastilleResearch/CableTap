@@ -1,0 +1,52 @@
+Bastille Tracking Number 27
+CVE-2017-9484
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to discover the CM MAC of a Comcast customer's gateway by sniffing Wi-Fi traffic on the channel the gateway is operating on.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST 
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+Every ~4 seconds, the gateway transmits a 156 byte 802.11 IPv6 multicast packet, with the source address set to the MAC address of the l2sd0.500 network interface on the gateway. This was observed to differ from the CM MAC, which is not normally known, as follows:
+
+11:22:33:44:55:66 - l2sd0.500
+0F:22:33:44:55:63 - CM MAC
+
+As illustrated above, the CM MAC can be found by subtracting two bytes from the first octet, and three bytes from the last octet of the l2sd0.500 interface MAC address. 
+
+Once an attacker has the CM MAC, they can proceed to generate the SSID for the hidden home security network on the target gateway.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to control or change this behavior.
+
+
+
+Recommended Remediation
+
+Configure the gateway so that it does not leak the CM MAC.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

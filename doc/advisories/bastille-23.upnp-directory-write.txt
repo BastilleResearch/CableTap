@@ -1,0 +1,46 @@
+Bastille Tracking Number 23
+CVE-2017-9480
+
+Overview
+
+A vulnerability has been discovered that allows an attacker, who has the ability to launch applications on a gateway (Bastille Tracking Number 22), to read arbitrary files.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+The UPnP services running on the gateway serve XML files from the directory /var/IGD/. An attacker with the ability to launch applications (Bastille Tracking Number 22) can copy files to this directory, and then download them over HTTP. 
+An attacker who is connected to the Xfinity Home Security Wi-Fi AP, and has copied the persistent configuration data to /var/IGD/<file>, can download this at the following URL:
+
+http://172.16.12.1:49153/<file>
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+Comcast customers can disable UPnP through the web UI on their gateway.  
+
+
+
+Recommended Remediation
+
+Comcast customers can disable UPnP through the web UI on their gateway.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

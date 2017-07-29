@@ -1,0 +1,72 @@
+Bastille Tracking Number 32
+CVE-2017-9521
+
+Bastille Vulnerability Label: Unnecessary Services
+Bastille Provided Severity: Critical
+
+Overview
+
+Unnecessary services occurs when a device exposes network services to interfaces and users that should not be able to interact with the services in question (i.e.: does not follow the principle of least privilege). The impact of unnecessary services can vary greatly depending on the nature of the exposed services and the scope to which the services are exposed. In the case of the modems identified in this disclosure, a significant number of services were exposed both to local LAN and anonymous Internet users., and some of the services enable third-parties to execute arbitrary code on the affected devices and retrieve files from the devices' filesystems. Further investigation determined that a significant amount of plain-text credentials were stored on the modems' filesystems, including wireless network passwords and login credentials of Comcast customers.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3939B, firmware version dpc3939b-v303r204217-150321a-CMCST
+Cisco DPC3941T, firmware version DPC3941_2.5s3_PROD_sey
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version TG1682_2.2p7s2_PROD_sey
+
+
+
+Proof-of-Concept
+
+To observe the unnecessary services on the affected modems, do the following:
+
+(1) Download and install Nmap (https://nmap.org/)
+
+(2) Run a full TCP scan against the modem from the local LAN. A full TCP scan can be run through the following command:
+
+nmap -sT -Pn -T4 -p- -n 10.0.0.1
+
+(3) Run a full UDP scan against the modem from the local LAN. A full UDP scan can be run through the following command:
+
+nmap -sU -Pn -T4 -p- -n 10.0.0.1
+
+(4) Observe the results of the Nmap scans indicating the services that were found to be open.
+
+The assessment team also determined that firewall rules for the public-facing IP address associated with the modem differed depending upon where the Nmap scan originated from. As such, these tests should be conducted again for each of the IP addresses associated with the affected modems from the vantage point of both the local LAN and the public Internet.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Cisco DPC3939B, firmware version dpc3939b-v303r204217-150321a-CMCST
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version  TG1682_2.2p7s2_PROD_sey
+
+
+
+Mitigation
+
+Comcast should review the list of unnecessary services. For each service, Comcast should determine:
+
+(1) Is the network service consumed at all? If not, then it should be removed.
+
+(2) What network interface the service should be bound to. If the service is only consumed locally, it should only be bound to localhost.
+
+(3) If the service should be bound to a non-local interface, then where should traffic communicating with the service originate from? Firewall rules should be modified to restrict access to only those IP addresses that require access.
+
+
+
+Recommended Remediation
+
+N/A
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

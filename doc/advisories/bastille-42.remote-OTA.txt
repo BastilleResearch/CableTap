@@ -1,0 +1,45 @@
+Bastille Tracking Number 42
+CVE-2017-9498
+
+Overview
+
+With root access on a Motorola MX011ANM set-top box, an attacker can push arbitrary firmware updates to XR11 remotes.
+
+
+
+Affected Platforms:
+
+- Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+- Xfinity XR11-20 Voice Remote
+
+
+
+Proof-of-Concept
+
+An attacker can modify known files to upload an arbitrary firmware image to a target XR11 remote.
+
+
+
+Test Environment:
+
+- Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+- Xfinity XR11-20 Voice Remote, firmware version 1.0.1.0
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to change this behavior.
+
+
+
+Recommended Remediation
+
+Use cryptographically signed firmware images that are checked on both the set-top box and remote.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

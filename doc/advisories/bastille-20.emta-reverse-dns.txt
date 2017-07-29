@@ -1,0 +1,52 @@
+Bastille Tracking Number 20
+CVE-2017-9478
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to discover potential CM MACs of Comcast residential gateways in their region.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+The MTA/VoIP interface has a MAC address in the same range as the CM MAC, observed to be offset by two bytes (the CM MAC is not normally known). This means that if an attacker can determine the MTA/VoIP MAC address, they can also determine the CM MAC.
+
+The FQDN of the MTA/VoIP IPv4 address includes the MTA/VoIP MAC address, in the following format:
+
+m001122334455.atlt6.ga.comcast.net
+
+This turns into the following CM MAC:
+
+00:11:22:33:44:53
+
+Using a reverse DNS database, it is possible to enumerate all of the MTA/VoIP MAC addresses in a given region. (Subdomains of atltX.ga.comcast.net would produce a list of possible CM MAC's in Atlanta.)
+
+An attacker can then generate the list of possible hidden home security Wi-Fi networks in their region.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to change the FQDN of the MTA/VoIP interface on their gateway.
+Recommended Remediation: Use an MTA/VoIP FQDN addressing scheme which does not contain internal MAC addresses.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

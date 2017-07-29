@@ -1,0 +1,51 @@
+Bastille Tracking Number 18
+CVE-2017-9476
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to connect to a hidden Wi-Fi access point running on a Comcast customer's gateway. This allows the attacker to access the Internet for free, and attribute any malicious activity to the Comcast customer they are targeting.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version TG1682_2.2p7s2_PROD_sey
+
+
+
+Proof-of-Concept
+
+Many residential gateways include a hidden home security Wi-Fi network, which is active regardless of whether or not the customer is subscribed to this service.
+
+There is a deterministic way to generate the hidden SSID and its passphrase.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+Arris TG1682G, eMTA&DOCSIS version 10.0.132.SIP.PC20.CT, software version TG1682_2.2p7s2_PROD_sey
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow customers to disable this Wi-Fi network.
+
+
+
+Recommended Remediation
+
+Disable the home security network for customers who do not subscribe to this service.
+
+Use secure passphrases which cannot be generated using readily available information.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

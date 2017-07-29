@@ -1,0 +1,45 @@
+Bastille Tracking Number 39
+CVE-2017-9495
+
+Overview
+
+A vulnerability has been discovered that makes it possible to read arbitrary files from the Motorola MX011ANM set-top box.
+
+
+
+Affected Platforms
+
+Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+
+
+
+Proof-of-Concept
+
+The Motorola MX011ANM includes a diagnostic display that can be accessed by pressing "EXIT, Down, Down, 2" on an RF4CE remote.
+
+When this diagnostic display is active, it is possible to execute a known script using the Remote Web Inspector in order to read arbitrary files.
+
+
+
+Test Environment
+
+Motorola MX011ANM, firmware version MX011AN_2.9p6s1_PROD_sey
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to change this behavior.
+
+
+
+Recommended Remediation
+
+Restrict access to the Remote Web Inspector, and restrict the scope of the known script.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

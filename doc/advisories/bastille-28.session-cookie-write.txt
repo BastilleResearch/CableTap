@@ -1,0 +1,53 @@
+Bastille Tracking Number 28
+CVE-2017-9485
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to write arbitrary data to a session cookie stored at a known location on a target gateway.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+Using the syseventd vulnerability (Bastille Tracking Number 22), an attacker can put a target gateway into UI dev mode by creating the file /var/ui_dev_mode on disk.
+
+When this file is present on the gateway, the web UI bypasses the normal authentication logic, and accepts any password, as long as a valid username is entered.
+
+As a result of bypassing the normal authentication logic, when an invalid username is entered, session data is written to disk, but never deleted.
+
+An attacker can therefore enter arbitrary data into the username field, which gets written to disk at the following path:
+
+/var/tmp/sess_[PHP Session ID]
+
+The PHP Session ID is included in the login attempt HTTP response, giving the attacker control of the contents of a file at a known location on the gateway.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to control or change this behavior.
+
+
+
+Recommended Remediation
+
+Modify the web UI to delete the session data when a user enters an invalid username.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

@@ -1,0 +1,45 @@
+Bastille Tracking Number 19
+CVE-2017-9477
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to discover the CM MAC of a Comcast customer's gateway by connecting to the "xfinitywifi" hotspot running on the gateway. 
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+When a user connects to an "xfinitywifi" hotspot on an affected gateway, the CM MAC, which is not normally known, is included in the DHCP ACK.
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421733-160420a-CMCST
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+Comcast customers can prevent this information leakage by disabling the "xfinitywifi" hotspot on their gateway.
+
+
+
+Recommended Remediation
+
+Configure the "xfinitywifi" DHCP server so that it does not leak the CM MAC.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO

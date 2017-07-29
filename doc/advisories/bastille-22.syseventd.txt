@@ -1,0 +1,51 @@
+Bastille Tracking Number 22
+CVE-2017-9479
+
+Overview
+
+A vulnerability has been discovered that enables an attacker to launch applications on a gateway as a root user. This vulnerability can be exploited by an attacker connected to the LAN, private Wi-Fi AP, or Xfinity Home Security AP.
+
+
+
+Affected Platforms
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Proof-of-Concept
+
+The syseventd service provides a mechanism to launch applications on the gateway in response to certain events, such as the one-minute cron job firing. The sysevent command line application is used to communicate with the syseventd server, which is open on port 52378 to the LAN, private Wi-Fi AP, and Xfinity Home Security Wi-Fi AP.
+
+An attacker on one of the above networks can take advantage of this, using the sysevent command line application to launch applications on the gateway. 
+
+The following two commands, when executed from a computer connected to an Xfinity Home Security Wi-Fi AP, will cause the persistent storage configuration data to be copied to /var/IGD/. This can then be retrieved by the attacker.
+
+./sysevent --port 52367 --ip 172.16.12.1 async </path/to/file> /bin/cp
+
+./sysevent --port 52367 --ip 172.16.12.1 set </path/to/file> /var/IGD/<file>
+
+
+
+Test Environment
+
+Cisco DPC3939, firmware version dpc3939-P20-18-v303r20421746-170221a-CMCST
+
+
+
+Mitigation
+
+There is no apparent mechanism to allow Comcast customers to disable syseventd access.
+
+
+
+Recommended Remediation
+
+Update the firewall rules to disable access to syseventd from the LAN, private Wi-Fi AP, and Xfinity Home Security Wi-Fi AP.
+
+
+
+Credits
+
+Marc Newlin and Logan Lamb, Bastille
+Chris Grayson, Web Sight.IO
